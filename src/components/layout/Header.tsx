@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 
 const Header = () => {
-  const cart = useAppSelector(state => state.cart);
+  const cart = useAppSelector((state) => state.cart);
 
   return (
     <header style={{ padding: "10px", background: "#f5f5f5" }}>
