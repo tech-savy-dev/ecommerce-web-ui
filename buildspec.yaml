@@ -1,36 +1,36 @@
 version: 0.2
 
-version: 0.2
-
 env:
   variables:
     DOMAIN: "ecommerce-domain"
     REPO: "ecommerce-web-ui"
     REGION: "ap-southeast-1"
-    S3_BUCKET: "ecommerce-web-ui-dev-677450898543" # 👈 your frontend bucket
+    S3_BUCKET: "ecommerce-web-ui-dev-677450898543"
 
 phases:
   install:
     runtime-versions:
-      nodejs: 21.5.0
+      nodejs: 21
     commands:
-      - echo "[INSTALL] Getting AWS caller identity..."
-      - aws sts get-caller-identity
+      - echo "[INSTALL] AWS account info..."
       - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
-      - echo "[INSTALL] Getting CodeArtifact auth token..."
+      - echo "[INSTALL] Get CodeArtifact token..."
       - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain $DOMAIN --domain-owner $AWS_ACCOUNT_ID --region $REGION --query authorizationToken --output text)
 
-      # Configure npmrc for CodeArtifact
+      # Configure .npmrc for multi-level resolution
       - echo "@ecommerce:registry=https://$DOMAIN-$AWS_ACCOUNT_ID.d.codeartifact.$REGION.amazonaws.com/npm/$REPO/" >> ~/.npmrc
       - echo "//${DOMAIN}-${AWS_ACCOUNT_ID}.d.codeartifact.${REGION}.amazonaws.com/npm/${REPO}/:_authToken=${CODEARTIFACT_AUTH_TOKEN}" >> ~/.npmrc
 
-      - echo "[INSTALL] Installing dependencies from CodeArtifact..."
+      # This ensures npm can fall back to upstream repos configured in CodeArtifact
+      - echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+
+      - echo "[INSTALL] Installing dependencies..."
       - npm ci --legacy-peer-deps
 
   build:
     commands:
-      - echo "[BUILD] Running React build..."
+      - echo "[BUILD] Building React app..."
       - npm run build
 
   post_build:
@@ -38,10 +38,6 @@ phases:
       - echo "[POST_BUILD] Syncing build output to S3..."
       - aws s3 sync build/ s3://$S3_BUCKET/ --delete
       - echo "[POST_BUILD] UI deployed successfully to s3://$S3_BUCKET"
-
-artifacts:
-  files:
-    - '**/*'
 
 cache:
   paths:
