@@ -10,7 +10,7 @@ env:
 phases:
   install:
     runtime-versions:
-      nodejs: 21.5.0
+      nodejs: 18
     commands:
       - echo "[INSTALL] Getting AWS caller identity..."
       - aws sts get-caller-identity
