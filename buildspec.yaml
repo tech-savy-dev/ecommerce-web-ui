@@ -10,7 +10,7 @@ env:
 phases:
   install:
     runtime-versions:
-      nodejs: 21
+      nodejs: 21.5.0
     commands:
       - echo "[INSTALL] AWS account info..."
       - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
@@ -39,6 +39,11 @@ phases:
       - aws s3 sync build/ s3://$S3_BUCKET/ --delete
       - echo "[POST_BUILD] UI deployed successfully to s3://$S3_BUCKET"
 
-cache:
   paths:
     - node_modules/**/*
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: build
+
