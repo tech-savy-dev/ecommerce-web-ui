@@ -1,0 +1,46 @@
+version: 0.2
+
+env:
+  variables:
+    DOMAIN: "ecommerce-domain"
+    REPO: "ecommerce-web-ui"
+    REGION: "ap-southeast-1"
+    S3_BUCKET: "ecommerce-web-ui-dev-677450898543" # 👈 your frontend bucket
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 21.5.0
+    commands:
+      - echo "[INSTALL] Getting AWS caller identity..."
+      - aws sts get-caller-identity
+      - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+
+      - echo "[INSTALL] Getting CodeArtifact auth token..."
+      - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain $DOMAIN --domain-owner $AWS_ACCOUNT_ID --region $REGION --query authorizationToken --output text)
+
+      # Configure npmrc for CodeArtifact
+      - echo "@ecommerce:registry=https://$DOMAIN-$AWS_ACCOUNT_ID.d.codeartifact.$REGION.amazonaws.com/npm/$REPO/" >> ~/.npmrc
+      - echo "//${DOMAIN}-${AWS_ACCOUNT_ID}.d.codeartifact.${REGION}.amazonaws.com/npm/${REPO}/:_authToken=${CODEARTIFACT_AUTH_TOKEN}" >> ~/.npmrc
+
+      - echo "[INSTALL] Installing dependencies from CodeArtifact..."
+      - npm ci
+
+  build:
+    commands:
+      - echo "[BUILD] Running React build..."
+      - npm run build
+
+  post_build:
+    commands:
+      - echo "[POST_BUILD] Syncing build output to S3..."
+      - aws s3 sync build/ s3://$S3_BUCKET/ --delete
+      - echo "[POST_BUILD] UI deployed successfully to s3://$S3_BUCKET"
+
+artifacts:
+  files:
+    - '**/*'
+
+cache:
+  paths:
+    - node_modules/**/*
