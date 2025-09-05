@@ -12,25 +12,22 @@ phases:
     runtime-versions:
       nodejs: 21.5.0
     commands:
-      - echo "[INSTALL] AWS account info..."
+      - echo "[INSTALL] Getting AWS caller identity..."
       - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
 
-      - echo "[INSTALL] Get CodeArtifact token..."
+      - echo "[INSTALL] Getting CodeArtifact auth token..."
       - export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain $DOMAIN --domain-owner $AWS_ACCOUNT_ID --region $REGION --query authorizationToken --output text)
 
-      # Configure .npmrc for multi-level resolution
+      # Configure npmrc for CodeArtifact
       - echo "@ecommerce:registry=https://$DOMAIN-$AWS_ACCOUNT_ID.d.codeartifact.$REGION.amazonaws.com/npm/$REPO/" >> ~/.npmrc
       - echo "//${DOMAIN}-${AWS_ACCOUNT_ID}.d.codeartifact.${REGION}.amazonaws.com/npm/${REPO}/:_authToken=${CODEARTIFACT_AUTH_TOKEN}" >> ~/.npmrc
-
-      # This ensures npm can fall back to upstream repos configured in CodeArtifact
-      - echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
 
       - echo "[INSTALL] Installing dependencies..."
       - npm ci --legacy-peer-deps
 
   build:
     commands:
-      - echo "[BUILD] Building React app..."
+      - echo "[BUILD] Running React build..."
       - npm run build
 
   post_build:
@@ -39,6 +36,7 @@ phases:
       - aws s3 sync build/ s3://$S3_BUCKET/ --delete
       - echo "[POST_BUILD] UI deployed successfully to s3://$S3_BUCKET"
 
+cache:
   paths:
     - node_modules/**/*
 
@@ -46,4 +44,3 @@ artifacts:
   files:
     - '**/*'
   base-directory: build
-
