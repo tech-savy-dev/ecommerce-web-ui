@@ -1,5 +1,7 @@
 version: 0.2
 
+version: 0.2
+
 env:
   variables:
     DOMAIN: "ecommerce-domain"
@@ -10,7 +12,7 @@ env:
 phases:
   install:
     runtime-versions:
-      nodejs: 18
+      nodejs: 21.5.0
     commands:
       - echo "[INSTALL] Getting AWS caller identity..."
       - aws sts get-caller-identity
@@ -24,7 +26,7 @@ phases:
       - echo "//${DOMAIN}-${AWS_ACCOUNT_ID}.d.codeartifact.${REGION}.amazonaws.com/npm/${REPO}/:_authToken=${CODEARTIFACT_AUTH_TOKEN}" >> ~/.npmrc
 
       - echo "[INSTALL] Installing dependencies from CodeArtifact..."
-      - npm ci
+      - npm ci --legacy-peer-deps
 
   build:
     commands:
