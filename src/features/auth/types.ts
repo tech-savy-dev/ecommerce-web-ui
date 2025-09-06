@@ -1,2 +1,6 @@
-// placeholder to make this file a module
-export {};
+export interface UserProfile {
+	id: string;
+	email: string;
+	name?: string;
+	picture?: string;
+}
