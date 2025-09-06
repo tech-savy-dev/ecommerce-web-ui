@@ -1,21 +1,38 @@
+import React, { useState, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { addToCart } from "../features/cart/cartSlice";
+import { addToCart, decrementFromCart } from "../features/cart/cartSlice";
+import AuthModal from "../components/auth/AuthModal";
+import ProductList from "../components/product/ProductList";
 
 const Home = () => {
   const products = useAppSelector(state => state.products);
   const dispatch = useAppDispatch();
+  const [authOpen, setAuthOpen] = useState(true);
+  const auth = useAppSelector(state => state.auth);
+
+  // Close the modal automatically when user becomes logged in
+  useEffect(() => {
+    if (auth.isLoggedIn) setAuthOpen(false);
+  }, [auth.isLoggedIn]);
 
   return (
     <div style={{ padding: "20px" }}>
-      <h2>Products</h2>
-      <ul>
-        {products.map(p => (
-          <li key={p.id}>
-            {p.name} - ${p.price}{" "}
-            <button onClick={() => dispatch(addToCart(p))}>Add to Cart</button>
-          </li>
-        ))}
-      </ul>
+      {!auth.isLoggedIn && <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />}
+      {auth.isLoggedIn && auth.user && (
+        <div style={{ padding: 12, border: '1px solid #ddd', borderRadius: 8, display: 'inline-block', marginBottom: 12 }}>
+          <img src={auth.user.picture} alt={auth.user.name} style={{ width: 48, height: 48, borderRadius: 24, verticalAlign: 'middle', marginRight: 8 }} />
+          <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
+            <div style={{ fontSize: 12 }}>{auth.user.email}</div>
+          </div>
+        </div>
+      )}
+      
+  <h2>Products</h2>
+  <ProductList
+    products={products}
+    onIncrement={(p) => dispatch(addToCart(p))}
+    onDecrement={(p) => dispatch(decrementFromCart(p.id))}
+  />
     </div>
   );
 };
