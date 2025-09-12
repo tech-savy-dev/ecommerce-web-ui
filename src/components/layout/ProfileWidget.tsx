@@ -1,10 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useAppSelector } from '../../app/hooks';
-import useAuth from '../../hooks/useAuth';
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { logout } from '../../features/auth/authThunks';
+// ...existing code...
 
 const ProfileWidget: React.FC = () => {
   const auth = useAppSelector(state => state.auth);
-  const { signOut } = useAuth();
+  const dispatch = useAppDispatch();
+  const signOut = () => {
+    dispatch(logout());
+  };
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
   // Hooks must be called unconditionally. We'll return early after hooks.

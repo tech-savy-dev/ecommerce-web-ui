@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../ui/Modal';
-import LoginButton from './LoginButton';
+import { LoginButton } from './LoginButton';
 
 const AuthModal: React.FC<{ open: boolean; onClose?: () => void }> = ({ open, onClose }) => {
   if (!open) return null;

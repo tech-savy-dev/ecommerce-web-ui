@@ -3,9 +3,11 @@ import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { addToCart, decrementFromCart } from "../features/cart/cartSlice";
 import AuthModal from "../components/auth/AuthModal";
 import ProductList from "../components/product/ProductList";
+import { logout } from "../features/auth/authThunks";
+import { fetchProducts } from "../features/products/productsApi";
 
 const Home = () => {
-  const products = useAppSelector(state => state.products);
+  const [products, setProducts] = useState([]);
   const dispatch = useAppDispatch();
   const [authOpen, setAuthOpen] = useState(true);
   const auth = useAppSelector(state => state.auth);
@@ -13,6 +15,12 @@ const Home = () => {
   // Close the modal automatically when user becomes logged in
   useEffect(() => {
     if (auth.isLoggedIn) setAuthOpen(false);
+  }, [auth.isLoggedIn]);
+
+  useEffect(() => {
+    if (auth.isLoggedIn) {
+      fetchProducts().then(setProducts).catch(console.error);
+    }
   }, [auth.isLoggedIn]);
 
   return (
@@ -24,15 +32,20 @@ const Home = () => {
           <div style={{ display: 'inline-block', verticalAlign: 'middle' }}>
             <div style={{ fontSize: 12 }}>{auth.user.email}</div>
           </div>
+          <button
+            style={{ marginLeft: 16, padding: '6px 16px', borderRadius: 6, border: '1px solid #aaa', background: '#f5f5f5', cursor: 'pointer' }}
+            onClick={() => dispatch(logout())}
+          >
+            Logout
+          </button>
         </div>
       )}
-      
-  <h2>Products</h2>
-  <ProductList
-    products={products}
-    onIncrement={(p) => dispatch(addToCart(p))}
-    onDecrement={(p) => dispatch(decrementFromCart(p.id))}
-  />
+      <h2>Products</h2>
+      <ProductList
+        products={products}
+        onIncrement={(p) => dispatch(addToCart(p))}
+        onDecrement={(p) => dispatch(decrementFromCart(p.id))}
+      />
     </div>
   );
 };
