@@ -1,0 +1,202 @@
+[
+  {
+    "id": "prod-001",
+    "title": "Classic Cotton T-Shirt",
+    "description": "Soft, breathable cotton tee in multiple colors.",
+    "price": 19.99,
+    "image": "https://picsum.photos/seed/prod-001/400/300",
+    "category": "clothing",
+    "rating": 4.3,
+    "stock": 120
+  },
+  {
+    "id": "prod-002",
+    "title": "Slim Fit Jeans",
+    "description": "Modern slim fit denim with slight stretch.",
+    "price": 49.99,
+    "image": "https://picsum.photos/seed/prod-002/400/300",
+    "category": "clothing",
+    "rating": 4.5,
+    "stock": 60
+  },
+  {
+    "id": "prod-003",
+    "title": "Leather Wallet",
+    "description": "Genuine leather bi-fold wallet with card slots.",
+    "price": 29.99,
+    "image": "https://picsum.photos/seed/prod-003/400/300",
+    "category": "accessories",
+    "rating": 4.2,
+    "stock": 200
+  },
+  {
+    "id": "prod-004",
+    "title": "Wireless Earbuds",
+    "description": "Compact earbuds with active noise cancellation.",
+    "price": 79.99,
+    "image": "https://picsum.photos/seed/prod-004/400/300",
+    "category": "electronics",
+    "rating": 4.6,
+    "stock": 35
+  },
+  {
+    "id": "prod-005",
+    "title": "Stainless Steel Water Bottle",
+    "description": "Insulated bottle keeps drinks cold for 24 hours.",
+    "price": 24.5,
+    "image": "https://picsum.photos/seed/prod-005/400/300",
+    "category": "home",
+    "rating": 4.4,
+    "stock": 150
+  },
+  {
+    "id": "prod-006",
+    "title": "Running Sneakers",
+    "description": "Lightweight running shoes with breathable upper.",
+    "price": 89.99,
+    "image": "https://picsum.photos/seed/prod-006/400/300",
+    "category": "shoes",
+    "rating": 4.1,
+    "stock": 42
+  },
+  {
+    "id": "prod-007",
+    "title": "Bluetooth Speaker",
+    "description": "Portable speaker with rich bass and 12h battery.",
+    "price": 59.99,
+    "image": "https://picsum.photos/seed/prod-007/400/300",
+    "category": "electronics",
+    "rating": 4.0,
+    "stock": 80
+  },
+  {
+    "id": "prod-008",
+    "title": "Ceramic Coffee Mug",
+    "description": "12oz ceramic mug, dishwasher safe.",
+    "price": 12.0,
+    "image": "https://picsum.photos/seed/prod-008/400/300",
+    "category": "home",
+    "rating": 4.7,
+    "stock": 300
+  },
+  {
+    "id": "prod-009",
+    "title": "Desk Lamp with USB",
+    "description": "Adjustable LED desk lamp with USB charging port.",
+    "price": 34.99,
+    "image": "https://picsum.photos/seed/prod-009/400/300",
+    "category": "home",
+    "rating": 4.5,
+    "stock": 48
+  },
+  {
+    "id": "prod-010",
+    "title": "Travel Backpack",
+    "description": "Durable backpack with laptop compartment.",
+    "price": 69.99,
+    "image": "https://picsum.photos/seed/prod-010/400/300",
+    "category": "bags",
+    "rating": 4.3,
+    "stock": 75
+  },
+  {
+    "id": "prod-011",
+    "title": "Fitness Yoga Mat",
+    "description": "Non-slip yoga mat with extra cushioning.",
+    "price": 39.99,
+    "image": "https://picsum.photos/seed/prod-011/400/300",
+    "category": "fitness",
+    "rating": 4.6,
+    "stock": 95
+  },
+  {
+    "id": "prod-012",
+    "title": "Smartwatch",
+    "description": "Water-resistant smartwatch with heart-rate monitor.",
+    "price": 129.99,
+    "image": "https://picsum.photos/seed/prod-012/400/300",
+    "category": "electronics",
+    "rating": 4.2,
+    "stock": 28
+  },
+  {
+    "id": "prod-013",
+    "title": "Scented Candle Set",
+    "description": "Set of three soy wax candles with natural scents.",
+    "price": 22.5,
+    "image": "https://picsum.photos/seed/prod-013/400/300",
+    "category": "home",
+    "rating": 4.8,
+    "stock": 110
+  },
+  {
+    "id": "prod-014",
+    "title": "Gaming Mouse",
+    "description": "Ergonomic mouse with programmable buttons.",
+    "price": 49.0,
+    "image": "https://picsum.photos/seed/prod-014/400/300",
+    "category": "electronics",
+    "rating": 4.4,
+    "stock": 66
+  },
+  {
+    "id": "prod-015",
+    "title": "Notebook Set",
+    "description": "Pack of 3 hardcover notebooks, 120 pages each.",
+    "price": 15.0,
+    "image": "https://picsum.photos/seed/prod-015/400/300",
+    "category": "stationery",
+    "rating": 4.1,
+    "stock": 250
+  },
+  {
+    "id": "prod-016",
+    "title": "Noise-Canceling Headphones",
+    "description": "Over-ear headphones with premium audio.",
+    "price": 149.99,
+    "image": "https://picsum.photos/seed/prod-016/400/300",
+    "category": "electronics",
+    "rating": 4.7,
+    "stock": 22
+  },
+  {
+    "id": "prod-017",
+    "title": "Kitchen Knife Set",
+    "description": "5-piece stainless steel knife set with block.",
+    "price": 79.99,
+    "image": "https://picsum.photos/seed/prod-017/400/300",
+    "category": "home",
+    "rating": 4.5,
+    "stock": 40
+  },
+  {
+    "id": "prod-018",
+    "title": "LED Monitor 24\"",
+    "description": "24-inch full HD monitor with slim bezel.",
+    "price": 159.99,
+    "image": "https://picsum.photos/seed/prod-018/400/300",
+    "category": "electronics",
+    "rating": 4.3,
+    "stock": 18
+  },
+  {
+    "id": "prod-019",
+    "title": "Travel Thermos",
+    "description": "Leak-proof thermos keeps drinks hot for hours.",
+    "price": 27.0,
+    "image": "https://picsum.photos/seed/prod-019/400/300",
+    "category": "home",
+    "rating": 4.4,
+    "stock": 140
+  },
+  {
+    "id": "prod-020",
+    "title": "Wireless Charging Pad",
+    "description": "Qi-compatible fast charging pad for phones.",
+    "price": 29.99,
+    "image": "https://picsum.photos/seed/prod-020/400/300",
+    "category": "electronics",
+    "rating": 4.0,
+    "stock": 95
+  }
+]
