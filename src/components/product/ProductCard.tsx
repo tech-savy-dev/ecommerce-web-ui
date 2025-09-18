@@ -31,6 +31,21 @@ const ProductCard: React.FC<{
         )}
       </div>
       <div style={{ fontWeight: 700 }}>{product.name}</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#f59e0b' }}>
+            <div style={{ display: 'flex', gap: 2 }} aria-hidden>
+              {Array.from({ length: 5 }).map((_, i) => {
+                const starIndex = i + 1;
+                const full = product.rating >= starIndex;
+                const half = !full && product.rating >= (starIndex - 0.5);
+                return (
+                  <span key={i} style={{ fontSize: 14 }}>
+                    {full ? '★' : half ? '☆' : '☆'}
+                  </span>
+                );
+              })}
+            </div>
+            <div style={{ fontSize: 12, color: '#666' }}>{product.rating?.toFixed?.(1) ?? ''}</div>
+          </div>
       <div style={{ color: '#666' }}>${product.price}</div>
       <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: 8 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginLeft: 'auto' }}>
